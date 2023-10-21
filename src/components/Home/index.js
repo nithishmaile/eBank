@@ -8,14 +8,14 @@ const Home = () => {
   const token = Cookies.get('jwt_token')
 
   if (token === undefined) {
-    return <Redirect to="/login" />
+    return <Redirect to="/ebank/login" />
   }
 
   return (
     <div className="home-container">
       <Header />
       <div className="holder-details-container">
-        <h1 className="heading">Your Flexibility,Our Excellence</h1>
+        <h1 className="heading">Your Flexibility, Our Excellence</h1>
         <img
           src="https://assets.ccbp.in/frontend/react-js/ebank-digital-card-img.png"
           alt="digital card"

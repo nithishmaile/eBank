@@ -5,7 +5,7 @@ import Cookies from 'js-cookie'
 import './index.css'
 
 class LoginForm extends Component {
-  state = {pinInput: '', userInput: ''}
+  state = {pinInput: '', userInput: '', errorMessage: ''}
 
   onChangePin = event => {
     this.setState({pinInput: event.target.value})
@@ -21,6 +21,10 @@ class LoginForm extends Component {
     history.replace('/')
   }
 
+  errorMessage = error => {
+    this.setState({errorMessage: error})
+  }
+
   onClickLogin = async event => {
     event.preventDefault()
     const {userInput, pinInput} = this.state
@@ -34,15 +38,18 @@ class LoginForm extends Component {
       body: JSON.stringify(userObj),
     }
     const response = await fetch(url, options)
+    const data = await response.json()
+    console.log(response)
     if (response.ok === true) {
-      const data = await response.json()
-      console.log(data.jwt_token)
       this.onSuccessLogin(data.jwt_token)
+    } else {
+      console.log(data.error_msg)
+      this.errorMessage(data.error_msg)
     }
   }
 
   render() {
-    const {userInput, pinInput} = this.state
+    const {userInput, pinInput, errorMessage} = this.state
     return (
       <div className="login-container">
         <div className="second-container">
@@ -68,7 +75,7 @@ class LoginForm extends Component {
               PIN
             </label>
             <input
-              type="text"
+              type="password"
               placeholder="Enter PIN"
               id="pin"
               className="input"
@@ -82,6 +89,7 @@ class LoginForm extends Component {
             >
               Login
             </button>
+            <p className="error-message">{errorMessage}</p>
           </form>
         </div>
       </div>

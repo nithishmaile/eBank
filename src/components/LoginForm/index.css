@@ -54,3 +54,11 @@
   width: 90%;
   cursor: pointer;
 }
+
+.error-message {
+  color: red;
+  font-family: 'Roboto';
+  font-size: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
